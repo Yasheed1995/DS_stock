@@ -212,6 +212,7 @@ def main():
         x_train2 = x_train[:, :, 2:5].reshape(-1, 5, 3)
         x_train1 = np.concatenate((x_train1, x_train2), axis = 2)
         x_train3 = x_train[:, :, 5].reshape(-1, 5, 1) # Volume
+        x_train3 = x_train3 ** 2 # regularization term
         x_train1 = np.concatenate((x_train1, x_train3), axis = 2)
         
         mean_x = np.mean(x_train1, axis = 0)
@@ -366,7 +367,8 @@ def main():
         figdir = 'fig/'
          
         figpath = os.path.join(figdir,
-                'stock-{}-bins-{}.pdf'.format(args.index, args.bin_size))
+                'stock-{}-bins-{}-model-{}.pdf'.format(args.index,
+                    args.bin_size, args.model))
         # labels?
         # token?
         plot_conf_matrix(conf_matrix, labels, True, args.model, figpath)
