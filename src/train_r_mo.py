@@ -87,7 +87,10 @@ mode = args.action
 
 def RT_lstm(args):
     model = Sequential()
-    model.add(LSTM(args.hidden_size, input_shape=(int(args.window),4), return_sequences=True))
+    if mode == 'class':
+        model.add(LSTM(args.hidden_size, input_shape=(int(args.window),5), return_sequences=True))
+    else:
+        model.add(LSTM(args.hidden_size, input_shape=(int(args.window),4), return_sequences=True))
     model.add(LSTM(args.hidden_size, return_sequences=True))
     model.add(TimeDistributed(Dense(1)))
     model.add(Flatten())
@@ -201,8 +204,28 @@ def main():
     y = (y_train - mean_y) / std_y
     y_t1 = (y_test - mean_y) / std_y  
 
-    (X_train, Y_train), (X_test, Y_test) = (x_1, y), (x_t1, y_t1)
-    
+    if args.action == 'train':
+        (X_train, Y_train), (X_test, Y_test) = (x_1, y), (x_t1, y_t1)
+    elif args.action == 'class':
+        # add regularization
+        x_train1 = x_train[:, :, 0].reshape(-1, 5, 1)
+        x_train2 = x_train[:, :, 2:5].reshape(-1, 5, 3)
+        x_train1 = np.concatenate((x_train1, x_train2), axis = 2)
+        x_train3 = x_train[:, :, 5].reshape(-1, 5, 1) # Volume
+        x_train1 = np.concatenate((x_train1, x_train3), axis = 2)
+        
+        mean_x = np.mean(x_train1, axis = 0)
+        std_x = np.std(x_train1, axis = 0)
+        x_1 = (x_train1 - mean_x) / std_x
+        x_test1 = x_test[:, :, 0].reshape(-1, 5, 1)
+        x_test2 = x_test[:, :, 2:5].reshape(-1, 5, 3)
+        x_test3 = x_test[:, :, 5].reshape(-1, 5, 1) # Volume
+        x_test1 = np.concatenate((x_test1, x_test2), axis = 2)
+        x_test1 = np.concatenate((x_test1, x_test3), axis = 2)
+
+        x_t1 = (x_test1 - mean_x) / std_x
+
+        (X_train, Y_train), (X_test, Y_test) = (x_1, y_train), (x_t1, y_test)
 
     # training
     if args.action == 'train':
