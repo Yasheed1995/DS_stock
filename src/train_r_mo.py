@@ -372,7 +372,7 @@ def main():
         # labels?
         # token?
         plot_conf_matrix(conf_matrix, labels, True, args.model, figpath)
-        print ('saved matrix!!!')
+        print ('saved matrix in {}'.format(figpath))
         accuracy = accuracy_score(test_label, predict)
         precision, recall, f, _ = precision_recall_fscore_support(test_label,
                 predict, average='weighted')

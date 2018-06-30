@@ -60,7 +60,7 @@ parser.add_argument('--gpu_fraction', default=0.8, type=float)
 parser.add_argument('--max_length', default=7,type=int)
 
 # model parameter
-parser.add_argument('--loss_function', default='mse')
+parser.add_argument('--loss', default='mse')
 parser.add_argument('--cell', default='LSTM', choices=['LSTM','GRU'])
 parser.add_argument('-hid_siz', '--hidden_size', default=512, type=int)
 parser.add_argument('--dropout_rate', default=0.3, type=float)
@@ -95,11 +95,11 @@ def RT_lstm(args):
         model.add(Dense(args.bin_size, activation='softmax'))
         model.compile(loss='categorical_crossentropy', optimizer='adam',
                 metrics=['acc'])
-
+        
     else:
         model.add(Dense(5,activation='linear'))
         model.add(Dense(1,activation='linear'))
-        model.compile(loss="mse", optimizer="adam")
+        model.compile(loss=args.loss, optimizer="adam")
     
     return model
     
@@ -119,7 +119,7 @@ def RT_gru(args):
     else:
         model.add(Dense(5,activation='linear'))
         model.add(Dense(1,activation='linear'))
-        model.compile(loss="mse", optimizer="adam")
+        model.compile(loss=args.loss, optimizer="adam")
     
     return model
     
@@ -137,7 +137,7 @@ def RF_lstm(args):
 
     else:
         model.add(Dense(1, activation='linear'))
-        model.compile(loss="mse", optimizer="adam")
+        model.compile(loss=args.loss, optimizer="adam")
 
     return model
     
@@ -151,10 +151,10 @@ def RF_gru(args):
         model.add(Dense(args.bin_size, activation='softmax'))
         model.compile(loss='categorical_crossentropy', optimizer='adam',
                 metrics=['acc'])
-
+                
     else:
         model.add(Dense(1, activation='linear'))
-        model.compile(loss="mse", optimizer="adam")
+        model.compile(loss=args.loss, optimizer="adam")
 
     return model
     
@@ -178,7 +178,7 @@ def main():
     dm = DataManager(args.window, args.index)
     dm.add_data('data/data.csv')
     data, label, Z = dm.get_data()
-    x_train, x_test, y_train, y_test = train_test_split(data, label,
+    x_train, x_test, y_train, y_test = train_test_split(data[:-61, :, :], label[:-61],
             test_size=0.1) 
     x_train = x_train.astype(float)
     y_train = y_train.astype(float)
@@ -200,8 +200,8 @@ def main():
     x_all_2 = x_all[:, :, 2:5].reshape(-1, args.window, 3)
     x_all_1 = np.concatenate((x_all_1, x_all_2), axis = 2)
     
-    mean_x = np.mean(x_all_1, axis = 0)
-    std_x = np.std(x_all_1, axis = 0)
+    mean_x = np.mean(x_train1, axis = 0)
+    std_x = np.std(x_train1, axis = 0)
     x_1 = (x_train1 - mean_x) / std_x
     
     x_test1 = x_test[:, :, 0].reshape(-1, args.window, 1)
@@ -216,8 +216,8 @@ def main():
     
     x_train_all = (x_all_1 - mean_x) / std_x 
     
-    mean_y = np.mean(y_all)
-    std_y = np.std(y_all)
+    mean_y = np.mean(y_train)
+    std_y = np.std(y_train)
     y = (y_train - mean_y) / std_y
     y_t1 = (y_test - mean_y) / std_y
     y_60 = (y_last60 - mean_y) / std_y
@@ -242,7 +242,7 @@ def main():
         print (model.summary())
     
         (X,Y) = (x_train_all, y_train_all)
-        earlystopping = EarlyStopping(monitor='val_loss', patience = 5, verbose=1,
+        earlystopping = EarlyStopping(monitor='val_loss', patience = 10, verbose=1,
                 mode='min')
 
         save_path = os.path.join(save_path,'model.h5')
@@ -252,8 +252,8 @@ def main():
                                      monitor='val_loss',
                                      mode='min' )
 
-        history = model.fit(X, Y,
-                            validation_split=0.1,
+        history = model.fit(X_train, Y_train,
+                            validation_data=(X_test, Y_test),
                             epochs=args.nb_epoch,
                             batch_size=args.batch_size,
                             callbacks=[checkpoint, earlystopping] )
@@ -284,14 +284,14 @@ def main():
         plt.legend(loc='upper right')
         plt.xlabel("Time Period")
         plt.ylabel("Stock Price")
-        plt.ylim((70,100))
+        #plt.ylim((70,100))
         #plt.vlines(0, 0, 70, colors = "c", linestyles = "dashed")
-        plt.title("Stock Prediction of #{}".format(args.index))
+        plt.title("Stock Prediction of #{} (one stock data)".format(args.index))
         figdir = 'last60/'
         figpath = os.path.join(figdir,
-                'stock-{}-{}-dim-{}-win{}.pdf'.format(args.index, args.model_type, args.hidden_size, args.window))
+                '{}-{}-dim-{}-sing.pdf'.format(args.index, args.model_type, args.hidden_size))
         plt.savefig(figpath)
-        print('fig save!!! ', 'stock-{}-{}-dim-{}-win{}.pdf'.format(args.index, args.model_type, args.hidden_size, args.window))
+        print('fig save!!! ', '{}-{}-dim-{}-sing.pdf'.format(args.index, args.model_type, args.hidden_size))
          
     elif args.action == 'class':
         # need args: index, bin_size
