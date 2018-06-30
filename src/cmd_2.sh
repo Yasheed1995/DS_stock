@@ -6,9 +6,9 @@
 
 for stock in 2330
 do
-	./class.sh ${stock}_RF_lstm_20_class RF_lstm 10 ${stock}
-	./class.sh ${stock}_RF_gru_20_class RF_gru 10 ${stock}
-	./class.sh ${stock}_RT_lstm_20_class RT_lstm 10 ${stock}
-	./class.sh ${stock}_RT_gru_20_class RT_gru 10 ${stock}
+	./class.sh ${stock}_RF_lstm_10_class RF_lstm 11 ${stock}
+	./class.sh ${stock}_RF_gru_10_class RF_gru 11 ${stock}
+	./class.sh ${stock}_RT_lstm_10_class RT_lstm 11 ${stock}
+	./class.sh ${stock}_RT_gru_10_class RT_gru 11 ${stock}
 	
 done

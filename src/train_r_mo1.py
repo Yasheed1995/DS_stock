@@ -53,7 +53,7 @@ parser.add_argument('--save_history_path', default='save/history.npy',
         type=str)
 
 # training argument
-parser.add_argument('--batch_size', default=1024, type=int)
+parser.add_argument('--batch_size', default=512, type=int)
 parser.add_argument('--nb_epoch', default=20, type=int)
 parser.add_argument('--val_ratio', default=0.1, type=float)
 parser.add_argument('--gpu_fraction', default=0.8, type=float)
@@ -187,6 +187,8 @@ def main():
     
     x_last60 = data[-61:-1, :, :]
     y_last60 = label[-61:-1]
+    np.save("npy/y_last60.npy", y_last60)
+    print("===== save y 60 =====")
     
     x_all = np.load('data/trainX_5.npy').astype(float)
     y_all = np.load('data/trainY_5.npy').astype(float)

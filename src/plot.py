@@ -20,11 +20,12 @@ def plot_conf_matrix(cm, classes, normalize, title, savepath, cmap=plt.cm.Blues)
 
     fig = plt.figure()
     plt.imshow(cm, interpolation='nearest', cmap=cmap)
-    #plt.title(title, fontsize=15)
+    plt.title(title, fontsize=15)
     plt.colorbar()
-    #tick_marks = np.arange(len(classes))
-    #plt.xticks(tick_marks, classes, rotation=60, fontsize=10)
-    #plt.yticks(tick_marks, classes, fontsize=10)
+    tick_marks = np.arange(len(classes))
+    bins = [num+1 for num in classes]
+    plt.xticks(tick_marks, bins, rotation=60, fontsize=10)
+    plt.yticks(tick_marks, bins, fontsize=10)
 
     for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
         plt.text(j, i, round(cm[i, j], 2),
@@ -32,8 +33,8 @@ def plot_conf_matrix(cm, classes, normalize, title, savepath, cmap=plt.cm.Blues)
                  color="red" if i == j else "black", fontsize=10)
 
     plt.tight_layout()
-    #plt.xlabel('Predicted label', fontsize=15)
-    #plt.ylabel('True label', fontsize=15)
+    plt.xlabel('Predicted label', fontsize=15)
+    plt.ylabel('True label', fontsize=15)
    
     plt.savefig(savepath)
     plt.close(fig)
