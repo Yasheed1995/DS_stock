@@ -108,7 +108,7 @@ def RT_lstm(args):
     
 def RT_gru(args):
     model = Sequential()
-    model.add(GRU(args.hidden_size, input_shape=(int(args.window),4), return_sequences=True))
+    model.add(GRU(args.hidden_size, input_shape=(int(args.window),5), return_sequences=True))
     model.add(Dropout(args.dropout_rate))
     model.add(GRU(args.hidden_size, return_sequences=True))
     model.add(Dropout(args.dropout_rate))
@@ -128,7 +128,7 @@ def RT_gru(args):
     
 def RF_lstm(args):
     model = Sequential()
-    model.add(LSTM(args.hidden_size, return_sequences=True,input_shape=(int(args.window),4)))
+    model.add(LSTM(args.hidden_size, return_sequences=True,input_shape=(int(args.window),5)))
     model.add(Dropout(args.dropout_rate))
     model.add(LSTM(args.hidden_size))
     model.add(Dropout(args.dropout_rate))
@@ -145,7 +145,7 @@ def RF_lstm(args):
     
 def RF_gru(args):
     model = Sequential()
-    model.add(GRU(args.hidden_size, return_sequences=True,input_shape=(int(args.window),4)))
+    model.add(GRU(args.hidden_size, return_sequences=True,input_shape=(int(args.window),5)))
     model.add(Dropout(args.dropout_rate))
     model.add(GRU(args.hidden_size))
     model.add(Dropout(args.dropout_rate))
@@ -329,7 +329,7 @@ def main():
 
         
         # fit
-        earlystopping = EarlyStopping(monitor='val_acc', patience = 50, verbose=1,
+        earlystopping = EarlyStopping(monitor='val_acc', patience = 90, verbose=1,
                 mode='max')
 
         save_path = os.path.join(save_path,'model.h5')
