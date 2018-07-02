@@ -1,13 +1,13 @@
 # Learning to Make Stock Price Predictions
 
-## RNN-based Regression Command (path: src/RNN)
+## RNN-based Regression Command (劉祐瑄)
 ```
 change to src/RNN directory then execute the following command.
 
 python3 train_r_mo1.py [options as below]
 ```
 
-## RNN-based Classification Command (path: src/RNN)
+## RNN-based Classification Command (陳鴻智)
 ```
 change to src/RNN directory then execute the following command.
 
@@ -71,7 +71,7 @@ You may find the corresponding outputs according to the model name.
 ```
 
 
-## Other Machine Learning Approaches (path: src/ML)
+## Other Machine Learning Approaches (陳昀君)
 
 ## Data
 ``` Put data.csv under data directory.```
