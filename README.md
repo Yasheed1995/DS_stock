@@ -1,12 +1,16 @@
 # datascience_final
 
-# command
+# Regression Command
 ```
-python3 train_r_mo.py
 python3 train_r_mo1.py
 ```
 
-## command Usage
+# Classification Command
+```
+python3 train_r_mo.py
+```
+
+## RNN based Regression & Classification Command Usage
 ```
 --model name			“your model name”
 
@@ -44,10 +48,10 @@ python3 train_r_mo1.py
 
 --bin_size size			number of bins for classification	
 ```
-For more commands, please refer to class.sh.
+For more commands, please refer to class.sh & run.sh.
 
 # Outputs
-The prediction curves and the confusion matrix are saved in fig directory. 
+The prediction curves and the confusion matrix are saved in fig directory.
 
 You may find the results according to model name.
 
