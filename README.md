@@ -2,11 +2,15 @@
 
 ## RNN-based Regression Command (path: src/RNN)
 ```
+change to src/RNN directory then execute the following command.
+
 python3 train_r_mo1.py [options as below]
 ```
 
 ## RNN-based Classification Command (path: src/RNN)
 ```
+change to src/RNN directory then execute the following command.
+
 python3 train_r_mo.py [options as below]
 ```
 
@@ -73,7 +77,11 @@ You may find the corresponding outputs according to the model name.
 ``` Put data.csv under data directory.```
 
 ## Command
-```python run.py [ML Model] [Bin Size]```
+```
+change to src/ML directory then execute the following command.
+
+python run.py [ML Model] [Bin Size]
+```
 
 ## Arguments
 #### ML Model
