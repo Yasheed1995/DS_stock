@@ -51,12 +51,12 @@ python3 train_r_mo.py
 For more commands, please refer to class.sh & run.sh.
 
 # Outputs
-The prediction curves and the confusion matrix are saved in fig directory.
+The ```prediction curves``` and the ```confusion matrix``` are saved in ```fig``` directory.
 
 You may find the results according to model name.
 
-The accuracy, precision, recall, and f-measure for classification and MSE and MAE for regression are saved in log directory.
+The accuracy, precision, recall, and f-measure for classification and MSE and MAE for regression are saved in ```log``` directory.
 
-The trained models are saved in models directory.
+The trained models are saved in ```models``` directory.
 
 
