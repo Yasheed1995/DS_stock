@@ -2,12 +2,12 @@
 
 ## RNN-based Regression Command
 ```
-python3 train_r_mo1.py
+python3 train_r_mo1.py [options as below]
 ```
 
 ## RNN-based Classification Command
 ```
-python3 train_r_mo.py
+python3 train_r_mo.py [options as below]
 ```
 
 ## Data
