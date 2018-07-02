@@ -93,7 +93,7 @@ Bayes: Bayesian Classifier
 
 #### Bin Size
 ```
-A positive integer which is the number of bins plus 1.
+A positive integer which equals to the number of bins plus 1.
 ```
 
 ## Example Command
