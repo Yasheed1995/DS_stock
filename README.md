@@ -10,6 +10,9 @@ python3 train_r_mo1.py
 python3 train_r_mo.py
 ```
 
+## Data
+``` Put data.csv under data directory.```
+
 ### RNN based Regression & Classification Command Usage
 ```
 --model name			your model name
@@ -60,3 +63,35 @@ The ```accuracy, precision, recall, and f-measure``` for classification and ```M
 The ```trained models``` are saved in ```models``` directory.
 
 
+## Other Machine Learning Approaches
+
+## Data
+``` Put data.csv under data directory.```
+
+## Command
+```python run.py [ML Model] [Bin Size]```
+
+## Argument
+### ML Model
+```
+LinR: Linean Regression
+
+LogR: Logistic Regression
+
+SVM: Support Vector Machine
+
+D-Tree: Decision Tree
+
+RF: Random Forest
+
+NN: Neural Network (Multiple Layers Perceptron)
+
+KMeans: K-Means Clustering
+
+Bayes: Bayesian Classifier
+
+```
+### Bin Size
+```
+A positive integer which is the number of bins plus 1.
+```
