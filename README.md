@@ -71,8 +71,8 @@ The ```trained models``` are saved in ```models``` directory.
 ## Command
 ```python run.py [ML Model] [Bin Size]```
 
-## Argument
-### ML Model
+## Arguments
+#### ML Model
 ```
 LinR: Linean Regression
 
@@ -89,9 +89,33 @@ NN: Neural Network (Multiple Layers Perceptron)
 KMeans: K-Means Clustering
 
 Bayes: Bayesian Classifier
-
 ```
-### Bin Size
+
+#### Bin Size
 ```
 A positive integer which is the number of bins plus 1.
+```
+
+## Example Command
+```
+ python run.py LinR
+    
+python run.py LogR 11 (this will perform 10 classes classification)
+    
+python run.py SVM 11 (this will perform 10 classes classification)
+
+For more commands, please refer to run.sh.
+```
+
+## Output
+```
+Confusion matrix: saved in fig directory.
+    
+Prediction curves: saved in fig directory.
+    
+Numerical results: saved in log directory.
+    
+Trained models: saved in models directory.
+    
+You may find the corresponding outputs according to the model name.
 ```
