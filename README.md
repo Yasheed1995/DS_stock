@@ -1,20 +1,20 @@
 # datascience_final
 
-# Regression Command
+# RNN-based Regression Command
 ```
 python3 train_r_mo1.py
 ```
 
-# Classification Command
+# RNN-based Classification Command
 ```
 python3 train_r_mo.py
 ```
 
 ## RNN based Regression & Classification Command Usage
 ```
---model name			“your model name”
+--model name			your model name
 
---model_type type		“choose a model type”
+--model_type type		choose a model type
 
 --action action			class, train or test
 
