@@ -1,16 +1,16 @@
-# datascience_final
+# Learning to Make Stock Price Predictions
 
-# RNN-based Regression Command
+## RNN-based Regression Command
 ```
 python3 train_r_mo1.py
 ```
 
-# RNN-based Classification Command
+## RNN-based Classification Command
 ```
 python3 train_r_mo.py
 ```
 
-## RNN based Regression & Classification Command Usage
+### RNN based Regression & Classification Command Usage
 ```
 --model name			your model name
 
@@ -50,7 +50,7 @@ python3 train_r_mo.py
 ```
 For more commands, please refer to class.sh & run.sh.
 
-# Outputs
+## Outputs
 The ```prediction curves``` and the ```confusion matrix``` are saved in ```fig``` directory.
 
 You may find the results according to model name.
