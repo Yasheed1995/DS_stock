@@ -1,6 +1,5 @@
 from __future__ import print_function
 import numpy as np
-from util_1 import *
 from keras.models import Model, load_model, Sequential
 from keras.layers import Embedding, LSTM, GRU, Dense, Dropout, Bidirectional, TimeDistributed, Flatten
 from keras.callbacks import EarlyStopping, ModelCheckpoint
