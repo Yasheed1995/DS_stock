@@ -4,7 +4,7 @@
 ```
 change to src/RNN directory then execute the following command.
 
-python3 train_r_mo1.py [options as below]
+python3 train_r_mo2.py [options as below]
 ```
 
 ## RNN-based Classification Command (陳鴻智)
