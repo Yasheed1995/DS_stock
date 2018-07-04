@@ -179,13 +179,6 @@ def main():
     y_close = np.load('data/y_close_2330.npy').astype(float).reshape(-1,1)
     y_high = np.load('data/y_high_2330.npy').astype(float).reshape(-1,1)
     y_low = np.load('data/y_low_2330.npy').astype(float).reshape(-1,1)
-#    name = ['x', 'y_open', 'y_close', 'y_high', 'y_low']
-
-#    for i in range(5):
-#        print(name[i])
-#        np.save('data/{}_2330.npy'.format(name[i]), tmp[i])
-#        tmp[i] = tmp[i].reshape(-1, 1)
-        #print(tmp[i], tmp[i].shape)
     y = np.concatenate((y_close, y_high, y_low, y_open), axis = 1)
     print('concate Y shape:', y.shape)
     
@@ -193,26 +186,15 @@ def main():
     y = y.astype(float)
     x_train, x_test, y_train, y_test = train_test_split(data[:-61, :, :], y[:-61],
             test_size=0.01)
-#    x_train = x_train.astype(float)
-#    y_train = y_train.astype(float)
-#    x_test = x_test.astype(float)
-#    y_test = y_test.astype(float)
-    
+
     x_last60 = data[-61:-1, :, :]
     y_last60 = y_close[-61:-1]
    
-#    x_all = np.load('data/trainX_5.npy').astype(float)
-#    y_all = np.load('data/trainY_5.npy').astype(float)
-    
     #####preprocess data#####
     x_train1 = x_train[:, :, 0].reshape(-1, args.window, 1)
     x_train2 = x_train[:, :, 2:5].reshape(-1, args.window, 3)
     x_train1 = np.concatenate((x_train1, x_train2), axis = 2)
-    
-#    x_all_1 = x_all[:, :, 0].reshape(-1, args.window, 1)
-#    x_all_2 = x_all[:, :, 2:5].reshape(-1, args.window, 3)
-#    x_all_1 = np.concatenate((x_all_1, x_all_2), axis = 2)
-    
+        
     mean_x = np.mean(x_train1, axis = 0)
     std_x = np.std(x_train1, axis = 0)
     x_1 = (x_train1 - mean_x) / std_x
@@ -220,15 +202,12 @@ def main():
     x_test1 = x_test[:, :, 0].reshape(-1, args.window, 1)
     x_test2 = x_test[:, :, 2:5].reshape(-1, args.window,3)
     x_test1 = np.concatenate((x_test1, x_test2), axis = 2)
-#    x_t1 = (x_test1 - mean_x) / std_x
     
     x_last60_1 = x_last60[:, :, 0].reshape(-1, args.window, 1)
     x_last60_2 = x_last60[:, :, 2:5].reshape(-1, args.window, 3)
     x_last60_1 = np.concatenate((x_last60_1, x_last60_2), axis = 2)
     x_60 = (x_last60_1 - mean_x) / std_x  
-    
-#    x_train_all = (x_all_1 - mean_x) / std_x 
-    
+   
     mean_y = np.mean(y_train, axis = 0)
     std_y = np.std(y_train, axis = 0)
     print('std y shape', std_y.shape)
@@ -237,12 +216,7 @@ def main():
     y_o = y_train_n[:, 0].reshape(-1)
     y_c = y_train_n[:, 1].reshape(-1)
     y_h = y_train_n[:, 2].reshape(-1)
-    y_l = y_train_n[:, 3].reshape(-1)
-#    y_60 = (y_last60 - mean_y) / std_y
-#    y_train_all = (y_all - mean_y) / std_y
-
-#    (X_train, Y_train), (X_test, Y_test) = (x_1, y), (x_t1, y_t1)
-    
+    y_l = y_train_n[:, 3].reshape(-1)    
 
     # training
     if args.action == 'train':
@@ -258,11 +232,9 @@ def main():
         elif args.model_type == 'RF_gru':
             model = RF_gru(args)
         print (model.summary())
-    
-#        (X,Y) = (x_train_all, y_train_all)
+
         earlystopping = EarlyStopping(monitor='val_loss', patience = 3, verbose=1,
                 mode='min')
-
 
         Y_train = [y_o, y_c, y_h, y_l]
         y_type = ['open', 'close', 'high', 'low']
@@ -292,8 +264,7 @@ def main():
     # testing
     elif args.action == 'test' :
         print ('testing ...')
-#        print ('loading model from \"' + load_path + '\"')
-        
+ 
         x_t = x_60
         y_type = ['open', 'close', 'high', 'low']
         for i in range(4):
@@ -336,8 +307,6 @@ def main():
         plt.legend(loc='upper right')
         plt.xlabel("Time Period")
         plt.ylabel("Stock Price")
-        #plt.ylim((70,100))
-        #plt.vlines(0, 0, 70, colors = "c", linestyles = "dashed")
         plt.title("{} ({})".format(args.model_type, args.loss_function))
         figdir = 'fig/'
         figpath = os.path.join(figdir,
